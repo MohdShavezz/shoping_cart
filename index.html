@@ -1,341 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Portfolio</title>
-      <!-- style css -->
-      <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
-      <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+
+    <!-- Jquery google cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- boostrap  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- plugin cdn -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <!-- jquery validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-      <!-- name changer -->
-      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+        #formValidation label {
+            align-self: flex-start;
+        }
 
-    
-   </head>
-   <body>
-      <div class="scrollupbtn">
-         <a href="#"><i class="fas fa-angle-up"></i></a>         
-      </div>
-      <div id="preloader"></div>
+        .error {
+            color: red;
+            font-size: 14px;
+        }
 
-      <nav class="navbar">
-         <div class="maxwidth">
-            <div class="logo"><a href="#">Portfo<span>lio*</span></a></div>
-            <ul class="menu">
-               <li><a href="#home">Home</a></li>
-               <li><a href="#about">About</a></li>
-               <li><a href="#service">Projects</a></li>
-               <li><a href="#skill">Skills</a></li>
-               <!-- <li><a href="#team">Team</a></li> -->
-               <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="menu-btn">
-               <i class="fa fa-bars" aria-hidden="true"></i>
+        #items {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            width: 150px;
+            padding: 20px;
+        }
+
+        .item img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .item #itemName {
+            margin: 0;
+        }
+
+        .item #itemPrice {
+            margin: 2px 0;
+        }
+
+        .cartCss {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 5px;
+            margin-bottom: 5px;
+        }
+
+        .cartCss img {
+            width: 44px;
+        }
+
+        .cartCss h3 {
+            margin: 0;
+        }
+
+        #pdName {
+            margin-bottom: 0;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<!-- smart phone -->
+<!-- https://img.freepik.com/free-photo/mobile-phone-screen-digital-device_53876-97294.jpg?q=10&h=200 -->
+
+<!-- earphone -->
+<!-- https://img.freepik.com/free-photo/headphones-audio-listen_1203-7567.jpg?q=10&h=200 -->
+
+<!-- laptop -->
+<!-- https://png.pngtree.com/png-vector/20191026/ourmid/pngtree-laptop-icon-png-image_1871608.jpg -->
+
+<body id="bdy">
+
+    <button style="position: absolute;top: 10px;left: 10px;" onclick="reset()">Reset</button>
+
+    <nav style="display: flex;justify-content: center;margin:20px 0;">
+        <!-- <a href="index.html"><button type="button" class="btn btn-info btn-lg"
+                style="padding: 5px 30px;margin: 10px;">HOME</button></a> -->
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
+            style="padding: 5px 30px;margin: 10px;">Add ITEM</button>
+
+        <!-- <a href="index.html"><button type="button" class="btn btn-info btn-lg"
+                style="padding: 5px 30px;margin: 10px;">CART</button></a> -->
+    </nav>
+
+    <div class="msg" align='center' style="padding: 5px 0;color: white;"></div>
+
+    <div class="parent" style="display: flex;justify-content: space-around;">
+
+        <div id="items">
+
+            <!-- <div class="item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/100x100_logo.png"  alt="">
+            <h3 id="itemName">NAME</h3>
+            <h5 id="itemPrice">$200</h5>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2"
+style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
+        </div> -->
+
+        </div>
+
+        <div style="background-color: aquamarine;width: 30%;">
+            <h3 align="center">CART</h3>
+            <div id="cartItems">
+
             </div>
-         </div>
-      </nav>
-      <!-- home section -->
-      <section class="home" id="home">
-         <div class="maxwidth">
-            <div class="homecontent">
-               <div class="text-1">Hi, My name is</div>
-               <div class="text-2">Mohd Shavez</div>
-               <div class="text-3">and I'm a <span class="auto-input">Blogger</span></div>
-            </div><br><br>
-            <div class="button">
-               <a href="https://edurevolution360.blogspot.com/?m=1">My Blogs</a>
-            </div>
-         </div>
-      </section>
-      <!-- About section start -->
-      <section class="about" id="about">
-         <div class="maxwidth">
-            <h2 class="title">About me</h2>
-            <div class="about-content">
-               <div class="col-left">
-                  <img src="image/sha.jpg" alt="sha" width="300" height="280">
-               </div>
-               <div class="col-right">
-                  <h3>I am Shavez and I'm a <span>Full Stack Developer</span></h3>
-                  <p>
-                     I'm from Lucknow, I hold a Bachelor's degree in Computer Science and Engineering, with a graduation year of 2023. As an experienced MERN stack developer, I specialize in building robust, high-quality web applications. My expertise spans both front-end and back-end development. For details on my skills and experience, please refer to my resume.
-                  </p>
-                  <a href="https://drive.google.com/file/d/1SODBW3NiM03G88M-ufK1wRAiP2RrPTYN/view?usp=sharing"  target="_blank">Download CV</a> &nbsp;&nbsp;&nbsp;
-                  <a href="https://github.com/MohdShavezz" target="_blank">Github</a>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- service section start -->
-      <section class="service" id="service">
-         <div class="maxwidth">
-            <h2 class="title">My Projects</h2>
-            <div class="ser-content">
-               <div class="card">
-                  <a href="https://iamascholar.com/" style="text-decoration: none;color: inherit;">
-                  <div class="box">
-                     <i class="fas fa-users"></i>
-                     <div class="text">Crowd Funding</div>
-                     <p>A platform that empowers students and institutions to create, manage, and apply for scholarships. Students and institutes can easily manage their profiles, while patrons can donate to scholarships, track payments, and oversee their contributions through personalized profiles. <br>
-                     </p>
-                        <strong style="font-size: 14px;">Technologies: </strong> <span id="spn" style="color: #d3d3d34f; font-size: 12px;"> Html CSS Javascript ReactJs Libraries NodeJs MUI etc.</span>
-                     </div>
-                  </a> 
-               </div>  
-               <div class="card">
-                  <div class="box">
-                     <i class="fas fa-business-time"></i>
-                     <div class="text">ATP admin</div>
-                     <p>Aimed at providing a comprehensive platform for efficiently managing administrative tasks, this solution integrates advanced authentication services to ensure secure user access and role-based permissions, it allows administrators to assign specific roles, safeguard sensitive data.</p>
-                     <strong style="font-size: 14px;">Technologies: </strong> <span style="color: #d3d3d34f; font-size: 12px;"> Html CSS Javascript Bootstrap Asp .Net Core MVC etc</span>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="box">
-                     <i class="fas fa-laptop"></i>
-                     <div class="text">Freelance Portal</div>
-                     <p>A dynamic freelance portal connecting skilled freelancers with businesses and individuals seeking professional services. The platform allows freelancers to showcase their portfolios, bid on projects, and collaborate with clients across various industries.</p>
-                     <strong style="font-size: 14px;">Technologies: </strong> <span style="color: #d3d3d34f; font-size: 12px;"> Html CSS Javascript ReactJs Context NodeJs MUI etc.</span>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="box">
-                     <i class="far fa-hand-pointer"></i>
-                     <div class="text">Voting System</div>
-                     <p>Developed a college project that facilitates online voting for various campus clubs, such as music, theater, and cricket. The platform allows nominees to stand for election in their respective clubs, enabling students to cast votes securely and efficiently for club leadership positions. </p>                     
-                     <strong style="font-size: 14px;">Technologies: </strong> <span style="color: #d3d3d34f; font-size: 12px;"> Html CSS Javascript Bootstrap PHP etc.</span>
-                  </div>
-               </div>  
-               <div class="card">
-                  <a href="https://mohdshavezz.github.io/portfolio/" style="text-decoration: none;color: inherit;">        
-                  <div class="box">
-                     <i class="fa fa-shopping-cart"></i>
-                     <i class="fas fa-virus"></i>
-                     <div class="text">LWB Portal</div>
-                     <p>A business startup website that provides a diverse services to customers online, by consolidating various offerings, the platform creates a convenient marketplace where customers can explore and purchase from different vendors, all in one place. enabling businesses to reach a broader audience.</p>
-                              
-                     <strong style="font-size: 14px;">Technologies: </strong> <span style="color: #d3d3d34f; font-size: 12px;"> Html CSS Frameworks Javascript Bootstrap etc.</span>
-                  </div>
-               </a> 
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- skill section start -->
-      <section class="skill" id="skill">
-         <div class="maxwidth">
-            <h2 class="title">My Skills</h2>
-            <div class="skill-content">
-               <div class="col-left">
-                  <h3>My Creative Skills and Experiences</h3>
-                  <p style="padding-right: 30px;">Experienced Full Stack Developer specializing in the MERN stack (MongoDB, Express.js, React.js, Node.js). I build dynamic, high-quality websites and applications with strong expertise in both front-end and back-end development. With 2 years of professional experience in the IT industry, I have a proven track record of delivering robust and scalable solutions.
-                  </p>
-               </div>
-               <div class="col-right">
+            <h4 align="center">----------------------------------------</h4>
+            <h4 align="center">total : $&nbsp;<span id="total"></span> </h4>
+        </div>
+    </div>
 
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">HTML &nbsp; CSS&nbsp; Bootstrap&nbsp; Tailwind&nbsp; MUI</div>
-                           <div class="per">85%</div>
+    <div class="container text-center">
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" id="EditCloseBtn">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="" role="form" id="formValidation" name="formValidation">
+                            <label for="input">IMAGE :</label> <input type="file" name="img" id="img" accept="image/*">
+                            <label for="email">NAME:</label> <input type="text" name="name" id="name"
+                                placeholder="product name">
+                            <label for="phone">PRICE:</label> <input type="text" name="price" id="price"
+                                placeholder="price">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addBtn()"
+                            id="addBtnId">Add</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal 2 content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" id="EditCloseBtn">&times;</button>
+                        <h4 class="modal-title">Product Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="product-details">
+                            <img id="pdImg" src="" alt="" style="width: 50%;">
+                            <h3 id="pdName"></h3>
+                            <div style="display: flex;justify-content: center;align-items: center;">$<h5 id="pdPrice">
+                                </h5>
+                            </div>
+                            Qty: <input type="number" id="qty" value=1 name="qty" min="1" max="10"> <br> <br>
+                            <p>
+                                <b> Description:</b> <br>
+                                Discover the ultimate solution for all your needs with our versatile and innovative
+                                product line, designed to enhance your life in every aspect.
+                            </p>
                         </div>
-                        <div class="line one"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">NodeJs &nbsp;Javascript</div>
-                           <div class="per">80%</div>
-                        </div>
-                        <div class="line two"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">ReactJs&nbsp; Redux&nbsp; Context &nbsp; ReactQuery</div>
-                           <div class="per">80%</div>
-                        </div>
-                        <div class="line three"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">MongoDB&nbsp; ExpressJs</div>
-                           <div class="per">80%</div>
-                        </div>
-                        <div class="line four"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">NextJs&nbsp; TypeScript</div>
-                           <div class="per">65%</div>
-                        </div>
-                        <div class="line five"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">Git-Github</div>
-                           <div class="per">75%</div>
-                        </div>
-                        <div class="line seven"></div>
-                     </div>
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">Mysql</div>
-                           <div class="per">65%</div>
-                        </div>
-                        <div class="line six"></div>
-                     </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addcart()"
+                            id="addCartBtnId">AddCart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <script>
+        let arr = []
+        let arrCart = []
+        let str = ''
+        let editId = null
+        let msg = document.querySelector('.msg')
+        let addBtnRef = document.querySelector('#addBtnId')
+        let btnTxt = addBtnRef.innerHTML
+
+        let modal = document.getElementById('myModal')
+        let body = document.getElementById('bdy')
+
+
+        function reset() {
+            localStorage.clear()
+            arr = []
+            arrCart = []
+            display()
+            let p = ''
+            arrCart.forEach((ele, i) => {
+                p += `<div class="cartCss">
+                    <img src="${ele.img}"  alt="">
+                    <h3 >${ele.name}</h3>
+                    <h5 >${'$'}${ele.price}</h5>
+                    <h5 >${ele.qty}</h5>
+                    <button onclick="dltCartItem(${i})">X</button>
+                    </div>`
+            })
+            document.querySelector('#cartItems').innerHTML = p
+            document.getElementById('total').innerHTML = 0
+        }
+
+        // fetch('data1.json').then((response) => response.json())
+        //     .then((json) => myFunction(json));
+
+        // function myFunction(data) {
+        //     data.forEach((e, i) => {
+        //         let { img, name, price } = e
+        //         arr.push({  'img': img, 'name': name,'price': price })
+        //         saveInfo()
+        //         str += `<div class="item">
+        //     <img src="${img}"  alt="">
+        //     <h3 id="itemName">${name}</h3>
+        //     <h5 id="itemPrice">${price}</h5>
+        //     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">BUY NOW</button>
+        // </div>`
+        //     });
+        //     document.querySelector('#items').innerHTML = str
+
+        // }
+
+
+
+
+        function total() {
+            let data = JSON.parse(localStorage.getItem('cart'))
+            let totalPrice = 0;
+            for (let i = 0; i < data.length; i++) {
+                totalPrice += parseInt(data[i].price * data[i].qty);
+            }
+            console.log(totalPrice)
+            document.getElementById('total').innerHTML = totalPrice
+        }
+
+
+
+
+        if (localStorage.getItem('users') != null) {
+            arr = JSON.parse(localStorage.getItem('users'))
+        }
+        // initial items show localstorage
+        display()
+
+
+        // initial cartItems show localstorage
+        if (localStorage.getItem('cart') != null) {
+            total()
+            arrCart = JSON.parse(localStorage.getItem('cart'))
+            let p = ''
+            arrCart.forEach((ele, i) => {
+                p += `<div class="cartCss">
+                    <img src="${ele.img}"  alt="">
+                    <h3 >${ele.name}</h3>
+                    <h5 >${'$'}${ele.price}</h5>
+                    <h5 >${ele.qty}</h5>
                     
-                     <div class="bar">
-                        <div class="info">
-                           <div class="nm">Socket.io &nbsp;JQuery</div>
-                           <div class="per">65%</div>
-                        </div>
-                        <div class="line eight"></div>
-                     </div>
-               </div>
-            </div>
-         </div>
-      </section>
+                    <button onclick="dltCartItem(${i})">X</button>
+                    </div>`
+            })
+            document.querySelector('#cartItems').innerHTML = p
+        }
 
-      <!-- team section  -->
-      <!-- <section class="team" id="team">
-         <div class="maxwidth">
-            <h2 class="title">My team</h2>
-            <div class="carousel owl-carousel">
-               <div class="card">
-                  <div class="box">                     
-                     <img src="image/sha.jpg" alt="sha">
-                     <div class="text">Mohd</div>
-                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate libero nemo aspernatur unde dolorem mollitia.</p>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="box">                     
-                     <img src="image/sha.jpg" alt="sha">
-                     <div class="text">Shavez</div>
-                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate libero nemo aspernatur unde dolorem mollitia.</p>
-                  </div>
-               </div>
-               <div class="card">
-                  <div class="box">                     
-                     <img src="image/sha.jpg" alt="sha">
-                     <div class="text">Ansari</div>
-                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate libero nemo aspernatur unde dolorem mollitia.</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>  -->
-      <!-- contact section start  -->
-      <section class="contact" id="contact">
-         <div class="maxwidth">
-            <h2 class="title">Contact me</h2>
-            <div class="contcontent">
-               <div class="col-left">
-                  <h3>Get in touch</h3>
-                  <p>come along with me for more dashing and cool websites design and be the part of excellence and let's from each other for any query, question or suggestion message me by filling this form.
-                  </p>
-                  <div class="leflef">
-                     <div class="detail">
-                        <i class="fas fa-user"></i>
-                        <div class="data">
-                           <div class="one">Name</div>
-                           <div class="two">Mohd Shavez</div>       
-                        </div>                                          
-                     </div>
-                     <div class="detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div class="data">
-                           <div class="one">Address</div>
-                           <div class="two">Lucknow, 226003, India</div>       
-                        </div>                                          
-                     </div>
-                     <div class="detail">
-                        <i class="fa fa-envelope"></i>
-                        <div class="data">
-                           <div class="one">Email</div>
-                           <a class="two" style="color: black;" href="email">shaveza493@gamil.com</a>  
-                        </div>                                          
-                     </div>
-                  </div>
-                  
-               </div>
-               <div class="col-right">
-                  <h3>Message me</h3>
-                  <form action="">
-                     <div class="fields">
-                        <div class="field name">
-                           <input type="text" name="name" placeholder="Name" >
-                        </div>
-                        <div class="field email">
-                           <input type="mail" name="mail" placeholder="Email" >
-                        </div>
-                     </div>
 
-                     <div class="field subject">
-                        <input type="text" name="name" placeholder="Subject">
-                     </div>
-                     <div class="field txtarea">
-                        <textarea  cols="30" rows="5" placeholder="Message..."></textarea>
-                     </div>
-                     
-                        <button type="submit" style="margin-left: -10px;">Send</button>
-                     
-                  </form>
-                  </p>
+        function addcart() {
+            let img = document.querySelector('#pdImg').src
+            let name = document.querySelector('#pdName').innerHTML
+            let price = document.querySelector('#pdPrice').innerHTML
+            let qty = document.querySelector('#qty').value
+
+            arrCart.push({ 'img': img, 'name': name, 'price': price, 'qty': qty })
+
+            localStorage.setItem('cart', JSON.stringify(arrCart))
+
+
+            let p = ''
+            arrCart.forEach((ele, i) => {
+                p += `<div class="cartCss">
+                    <img src="${ele.img}"  alt="">
+                    <h3 >${ele.name}</h3>
+                    <h5 >${'$'}${ele.price}</h5>
+                    <h5 >${ele.qty}</h5>
+
                     
-               </div>
-            </div>
-         </div>
-      </section>
+                    <button onclick="dltCartItem(${i})">X</button>
+                    </div>`
+            })
+            document.querySelector('#cartItems').innerHTML = p
 
-      <!-- footer  -->
-      <footer>
-         Created by <a href="https://www.linkedin.com/in/mohd-shavez-2340b0213">Linkedin</a> | 
-         <i class="fa fa-copyright"></i> <span id="year"></span> All rights.
-       </footer>
-       
+            total()
+
+        }
+        function dltCartItem(e) {
+            arrCart.splice(e, 1)
+            localStorage.setItem('cart', JSON.stringify(arrCart))
+            let p = ''
+            arrCart.forEach((ele, i) => {
+                p += `<div class="cartCss">
+                    <img src="${ele.img}"  alt="">
+                    <h3 >${ele.name}</h3>
+                    <h5 >${'$'}${ele.price}</h5>
+                    <h5 >${ele.qty}</h5>
+                    <button onclick="dltCartItem(${i})">X</button>
+                    </div>`
+            })
+            document.querySelector('#cartItems').innerHTML = p
+
+            total()
+        }
+
+        function buynow(e) {
+            // alert(i)
+            // console.log(arr[e].img)
+            document.querySelector('#pdImg').src = arr[e].img
+            document.querySelector('#pdName').innerHTML = arr[e].name
+            document.querySelector('#pdPrice').innerHTML = arr[e].price
+        }
 
 
 
 
+        function addBtn() {
 
-      <script src="script.js"></script>
+            // modal.setAttribute("style", "display:none;");
+            // modal.setAttribute("class", "modal fade");
+            // body.setAttribute("class", "");
+
+            let name = document.querySelector('#name').value
+            let imgInput = document.querySelector('#img') // step1
+            let price = document.querySelector('#price').value
+            if ((name == '' || imgInput.files.length == 0 || price == '')) {
+                alert('All field are required !!!')
+            }
+            else {
+                let p = document.getElementsByClassName('error')
+
+                let imgFile = imgInput.files[0] //step2
+                const reader = new FileReader()  //step3
+                reader.readAsDataURL(imgFile)  //step4
+                reader.onload = (e) => {             //step5
+                    let img = e.target.result
+
+                    msg.innerHTML = ''
+                    if (editId != null) {
+                        // edit
+                        arr.splice(editId, 1, { 'name': name, 'email': email, 'phone': phone })
+                        addBtnRef.innerHTML = btnTxt
+                        editId = null
+                        msg.style.display = 'block'
+                        msg.innerHTML = 'Editted succesfully'
+                        msg.style.background = 'green'
+
+                        msgHide()
+                    } else {
+                        // insert
+                        arr.push({ 'img': img, 'name': name, 'price': price })
+                        msg.style.display = 'block'
+                        msg.innerHTML = 'added succesfully'
+                        msg.style.background = 'green'
+
+                        msgHide()
+                    }
+                    saveInfo()
+                    document.querySelector('#img').value = ''
+                    document.querySelector('#name').value = ''
+                    document.querySelector('#price').value = ''
+                    display()
+                }
+            }
+            
+        }
+
+        function saveInfo() {
+            localStorage.setItem('users', JSON.stringify(arr))
+        }
+        function display() {
+            let p = ''
+            arr.forEach((ele, i) => {
+                p += `<div class="item">
+                    <img src="${ele.img}"  alt="">
+                    <h3 id="itemName">${ele.name}</h3>
+                    <h5 id="itemPrice">${'$'}${ele.price}</h5>
+                    <button  type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2" onclick="buynow(${i})">BUY NOW</button>
+                    </div>`
+            })
+            // document.querySelector('#items').insertAdjacentHTML("beforeend", p);
+            document.querySelector('#items').innerHTML = p
+        }
+
+        function edit(e) {
+
+            modal.setAttribute("style", "display:block;");
+            modal.setAttribute("class", "modal fade in ");
+            body.setAttribute("class", "modal-open;");
 
 
-      <!-- <script type="text/javascript">
-         window.addEventListener("scroll",function(){
-            var nav=document.querySelector("nav");
-            nav.classList.toggle("sticky",window.scrollY>0);
-         })
-      </script> -->
-      <script>
-         document.getElementById('year').textContent = new Date().getFullYear();
-       </script>
-       
-      <script>
-         var v = document.getElementById("preloader");
-         window.addEventListener("load", function () {
-             v.style.display = "none";
-         });
-     </script>
-      
-     <script>
-      var typed=new Typed(".auto-input",{
-         strings:["Blogger","Developer","Coder"],typeSpeed:100,backSpeed:100,loop:true
-      });
-     </script>
-   </body>
+            document.querySelector('#input').value = arr[e].name
+            document.querySelector('#email').value = arr[e].email
+            document.querySelector('#phone').value = arr[e].phone
+            editId = e
+            addBtnRef.innerHTML = 'Edit'
+        }
+        function deleet(e) {
+            var res = confirm("Delete " + arr[e].name + "?");
+            if (res) {
+                arr.splice(e, 1)
+                saveInfo()
+                display()
+                msg.style.display = 'block'
+                msg.innerHTML = 'Deleted succesfully'
+                msg.style.background = 'green'
+                msgHide()
+            }
+
+        }
+
+        function show() {
+            document.querySelector('.box').style.display = "block";
+        }
+
+        function hide(e) {
+            document.querySelector('.box').style.display = "none";
+            // let ele=document.querySelector('.box')
+            // ele.classList.add('d-none')
+        }
+
+        function msgHide() {
+            setTimeout(function () {
+                $(".msg").fadeOut();
+            }, 3000);
+        }
+
+
+        document.querySelector('.close').addEventListener('click', () => {
+            $("#myModal").modal('hide');
+            // modal.setAttribute("style", "display:none;");
+            //     modal.setAttribute("class", "modal fade");
+            //     body.setAttribute("class", "");
+        })
+
+        // document.querySelector('#EditCloseBtn').addEventListener('click', () => {
+        //     document.querySelector('#input').value = ''
+        //     document.querySelector('#email').value = ''
+        //     document.querySelector('#phone').value = ''
+        //     modal.setAttribute("style", "display:none;");
+        //     modal.setAttribute("class", "modal fade");
+        //     body.setAttribute("class", "");
+        //     addBtnRef.innerHTML = btnTxt
+        // })
+
+
+
+
+    </script>
+
+    <!-- validation script should be bwlow than jquery library cdn and validation scriipt -->
+    <script>
+        $("#formValidation").validate({
+            rules: {
+                img: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                price: {
+                    required: true,
+                    maxlength: 10,
+                    digits: true
+                }
+            },
+            messages: {
+
+                img: {
+                    required: "product absolute path"
+                },
+                name: {
+                    required: "Please specify your product name",
+                    minlength: "minlenght 2"
+                },
+                phone: {
+                    required: "put number",
+                    maxlength: "10 digit max",
+                    digits: "enter numbers!"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    </script>
+</body>
+
 </html>
