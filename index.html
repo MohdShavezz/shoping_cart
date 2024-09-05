@@ -20,40 +20,71 @@
 
 
     <style>
-        form{
-                display: flex;flex-direction: column;gap: 2px;
-            }
-            #formValidation label{
-                align-self: flex-start;
-            }
-            .error{
-                color: red;font-size: 14px;
-            }
-            #items{
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-            }
-            .item{
-                display: flex;flex-direction: column;justify-content: center;align-items: center;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;width: 150px;padding: 20px;
-            }
-            .item img{width: 100%;margin-bottom: 10px;}
-            .item #itemName{margin: 0;}
-            .item #itemPrice{margin:2px 0;}
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-            .cartCss{
-                display: flex;
-    justify-content: space-around;
-    align-items: center;padding: 0 5px;margin-bottom: 5px;
-            }
-            .cartCss img{width: 44px;}
-            .cartCss h3{margin: 0;}
+        #formValidation label {
+            align-self: flex-start;
+        }
 
-            #pdName{
-                margin-bottom: 0;
-    margin-top: 8px;
-            }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        #items {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            width: 150px;
+            padding: 20px;
+        }
+
+        .item img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .item #itemName {
+            margin: 0;
+        }
+
+        .item #itemPrice {
+            margin: 2px 0;
+        }
+
+        .cartCss {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 5px;
+            margin-bottom: 5px;
+        }
+
+        .cartCss img {
+            width: 44px;
+        }
+
+        .cartCss h3 {
+            margin: 0;
+        }
+
+        #pdName {
+            margin-bottom: 0;
+            margin-top: 8px;
+        }
     </style>
 </head>
 
@@ -71,21 +102,23 @@
     <button style="position: absolute;top: 10px;left: 10px;" onclick="reset()">Reset</button>
 
     <nav style="display: flex;justify-content: center;margin:20px 0;">
-        <a href="index.html"><button type="button" class="btn btn-info btn-lg" style="padding: 5px 30px;margin: 10px;">HOME</button></a>
-        
+        <!-- <a href="index.html"><button type="button" class="btn btn-info btn-lg"
+                style="padding: 5px 30px;margin: 10px;">HOME</button></a> -->
+
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
             style="padding: 5px 30px;margin: 10px;">Add ITEM</button>
 
-            <a href="index.html"><button type="button" class="btn btn-info btn-lg" style="padding: 5px 30px;margin: 10px;">CART</button></a>
+        <!-- <a href="index.html"><button type="button" class="btn btn-info btn-lg"
+                style="padding: 5px 30px;margin: 10px;">CART</button></a> -->
     </nav>
 
     <div class="msg" align='center' style="padding: 5px 0;color: white;"></div>
 
-<div class="parent" style="display: flex;justify-content: space-around;">
+    <div class="parent" style="display: flex;justify-content: space-around;">
 
-    <div id="items">
-        
-        <!-- <div class="item">
+        <div id="items">
+
+            <!-- <div class="item">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/100x100_logo.png"  alt="">
             <h3 id="itemName">NAME</h3>
             <h5 id="itemPrice">$200</h5>
@@ -93,20 +126,20 @@
 style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
         </div> -->
 
-    </div>
-
-    <div style="background-color: aquamarine;width: 30%;">
-       <h3 align="center">CART</h3>
-        <div  id="cartItems">
-
         </div>
-        <h4 align="center">----------------------------------------</h4>
-        <h4 align="center">total : $&nbsp;<span id="total"></span> </h4>
+
+        <div style="background-color: aquamarine;width: 30%;">
+            <h3 align="center">CART</h3>
+            <div id="cartItems">
+
+            </div>
+            <h4 align="center">----------------------------------------</h4>
+            <h4 align="center">total : $&nbsp;<span id="total"></span> </h4>
+        </div>
     </div>
-</div>
 
     <div class="container text-center">
-        
+
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -119,9 +152,8 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
                         <h4 class="modal-title">Modal Header</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="" role="form" id="formValidation" name="formValidation" >
-                            <label for="input">IMAGE URL :</label> <input type="text" name="img" id="img"
-                                placeholder="https://www.img/sdf.png"> 
+                        <form class="" role="form" id="formValidation" name="formValidation">
+                            <label for="input">IMAGE :</label> <input type="file" name="img" id="img" accept="image/*">
                             <label for="email">NAME:</label> <input type="text" name="name" id="name"
                                 placeholder="product name">
                             <label for="phone">PRICE:</label> <input type="text" name="price" id="price"
@@ -149,19 +181,22 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
                     </div>
                     <div class="modal-body">
                         <div id="product-details">
-                                <img id="pdImg" src=""  alt="" style="width: 50%;">
-                                <h3 id="pdName"></h3>
-                                <div style="display: flex;justify-content: center;align-items: center;">$<h5 id="pdPrice"></h5></div>
-                                Qty: <input type="number" id="qty" value=1 name="qty" min="1" max="10"> <br> <br>
-                               <p>
-                                <b> Description:</b> <br> 
-                                Discover the ultimate solution for all your needs with our versatile and innovative product line, designed to enhance your life in every aspect.
-                               </p>
+                            <img id="pdImg" src="" alt="" style="width: 50%;">
+                            <h3 id="pdName"></h3>
+                            <div style="display: flex;justify-content: center;align-items: center;">$<h5 id="pdPrice">
+                                </h5>
+                            </div>
+                            Qty: <input type="number" id="qty" value=1 name="qty" min="1" max="10"> <br> <br>
+                            <p>
+                                <b> Description:</b> <br>
+                                Discover the ultimate solution for all your needs with our versatile and innovative
+                                product line, designed to enhance your life in every aspect.
+                            </p>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addcart()"
-                            id="addCartBtnId" >AddCart</button>
+                            id="addCartBtnId">AddCart</button>
                     </div>
                 </div>
 
@@ -172,12 +207,12 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
     </div>
 
 
-    
+
 
 
     <script>
         let arr = []
-        let arrCart=[]
+        let arrCart = []
         let str = ''
         let editId = null
         let msg = document.querySelector('.msg')
@@ -188,10 +223,10 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
         let body = document.getElementById('bdy')
 
 
-        function reset(){
+        function reset() {
             localStorage.clear()
-            arr=[]
-            arrCart=[]
+            arr = []
+            arrCart = []
             display()
             let p = ''
             arrCart.forEach((ele, i) => {
@@ -204,7 +239,7 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
                     </div>`
             })
             document.querySelector('#cartItems').innerHTML = p
-            document.getElementById('total').innerHTML=0
+            document.getElementById('total').innerHTML = 0
         }
 
         // fetch('data1.json').then((response) => response.json())
@@ -229,15 +264,15 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
 
 
 
- function total(){
-    let data = JSON.parse(localStorage.getItem('cart'))
-        let totalPrice = 0;
-        for (let i = 0; i < data.length; i++) {
-             totalPrice += parseInt(data[i].price*data[i].qty );
-        }   
-        console.log(totalPrice)
-        document.getElementById('total').innerHTML=totalPrice
- }
+        function total() {
+            let data = JSON.parse(localStorage.getItem('cart'))
+            let totalPrice = 0;
+            for (let i = 0; i < data.length; i++) {
+                totalPrice += parseInt(data[i].price * data[i].qty);
+            }
+            console.log(totalPrice)
+            document.getElementById('total').innerHTML = totalPrice
+        }
 
 
 
@@ -247,7 +282,7 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
         }
         // initial items show localstorage
         display()
-        
+
 
         // initial cartItems show localstorage
         if (localStorage.getItem('cart') != null) {
@@ -266,19 +301,19 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
             })
             document.querySelector('#cartItems').innerHTML = p
         }
-        
 
-        function addcart(){
+
+        function addcart() {
             let img = document.querySelector('#pdImg').src
             let name = document.querySelector('#pdName').innerHTML
             let price = document.querySelector('#pdPrice').innerHTML
             let qty = document.querySelector('#qty').value
-            
-            arrCart.push({ 'img': img, 'name': name, 'price': price ,'qty':qty })
-            
+
+            arrCart.push({ 'img': img, 'name': name, 'price': price, 'qty': qty })
+
             localStorage.setItem('cart', JSON.stringify(arrCart))
 
-    
+
             let p = ''
             arrCart.forEach((ele, i) => {
                 p += `<div class="cartCss">
@@ -292,11 +327,11 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
                     </div>`
             })
             document.querySelector('#cartItems').innerHTML = p
-            
+
             total()
-            
+
         }
-        function dltCartItem(e){
+        function dltCartItem(e) {
             arrCart.splice(e, 1)
             localStorage.setItem('cart', JSON.stringify(arrCart))
             let p = ''
@@ -314,7 +349,7 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
             total()
         }
 
-        function buynow(e){
+        function buynow(e) {
             // alert(i)
             // console.log(arr[e].img)
             document.querySelector('#pdImg').src = arr[e].img
@@ -322,50 +357,58 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
             document.querySelector('#pdPrice').innerHTML = arr[e].price
         }
 
-        
+
 
 
         function addBtn() {
 
-            modal.setAttribute("style", "display:none;");
-            modal.setAttribute("class", "modal fade");
-            body.setAttribute("class", "");
+            // modal.setAttribute("style", "display:none;");
+            // modal.setAttribute("class", "modal fade");
+            // body.setAttribute("class", "");
 
             let name = document.querySelector('#name').value
-            let img = document.querySelector('#img').value
+            let imgInput = document.querySelector('#img') // step1
             let price = document.querySelector('#price').value
-            if ((name == '' || img == '' || price == '') ) {
-                return
+            if ((name == '' || imgInput.files.length == 0 || price == '')) {
+                alert('All field are required !!!')
             }
             else {
-                let p=document.getElementsByClassName('error')
-                
-                msg.innerHTML = ''
-                if (editId != null) {
-                    // edit
-                    arr.splice(editId, 1, { 'name': name, 'email': email, 'phone': phone })
-                    addBtnRef.innerHTML = btnTxt
-                    editId = null
-                    msg.style.display = 'block'
-                    msg.innerHTML = 'Editted succesfully'
-                    msg.style.background = 'green'
-                    
-                    msgHide()
-                } else {
-                    // insert
-                    arr.push({ 'img': img, 'name': name, 'price': price })
-                    msg.style.display = 'block'
-                    msg.innerHTML = 'added succesfully'
-                    msg.style.background = 'green'
-                   
-                    msgHide()
+                let p = document.getElementsByClassName('error')
+
+                let imgFile = imgInput.files[0] //step2
+                const reader = new FileReader()  //step3
+                reader.readAsDataURL(imgFile)  //step4
+                reader.onload = (e) => {             //step5
+                    let img = e.target.result
+
+                    msg.innerHTML = ''
+                    if (editId != null) {
+                        // edit
+                        arr.splice(editId, 1, { 'name': name, 'email': email, 'phone': phone })
+                        addBtnRef.innerHTML = btnTxt
+                        editId = null
+                        msg.style.display = 'block'
+                        msg.innerHTML = 'Editted succesfully'
+                        msg.style.background = 'green'
+
+                        msgHide()
+                    } else {
+                        // insert
+                        arr.push({ 'img': img, 'name': name, 'price': price })
+                        msg.style.display = 'block'
+                        msg.innerHTML = 'added succesfully'
+                        msg.style.background = 'green'
+
+                        msgHide()
+                    }
+                    saveInfo()
+                    document.querySelector('#img').value = ''
+                    document.querySelector('#name').value = ''
+                    document.querySelector('#price').value = ''
+                    display()
                 }
-                saveInfo()
-                document.querySelector('#img').value = ''
-                document.querySelector('#name').value = ''
-                document.querySelector('#price').value = ''
-                display()
             }
+            
         }
 
         function saveInfo() {
@@ -451,43 +494,43 @@ style="padding: 5px 30px;margin: 10px;">BUY NOW</button>
 
     </script>
 
-         <!-- validation script should be bwlow than jquery library cdn and validation scriipt -->
-         <script>
-            $("#formValidation").validate({
-                rules: {
-                    img:{
-                        required:true,
-                    },
-                    name: {
-                        required: true,
-                        minlength:2
-                    },
-                    price: {
-                        required: true,
-                        maxlength:10,
-                        digits:true
-                    }
+    <!-- validation script should be bwlow than jquery library cdn and validation scriipt -->
+    <script>
+        $("#formValidation").validate({
+            rules: {
+                img: {
+                    required: true,
                 },
-                messages: {
-                    
-                    img: {
-                        required: "product absolute path"
-                    },
-                    name: {
-                        required:"Please specify your product name",
-                        minlength:"minlenght 2"
-                    },
-                    phone:{
-                        required:"put number",
-                        maxlength:"10 digit max",
-                        digits: "enter numbers!"
-                    }
+                name: {
+                    required: true,
+                    minlength: 2
                 },
-                submitHandler: function (form) {
-                    form.submit();
+                price: {
+                    required: true,
+                    maxlength: 10,
+                    digits: true
                 }
-            });
-        </script>
+            },
+            messages: {
+
+                img: {
+                    required: "product absolute path"
+                },
+                name: {
+                    required: "Please specify your product name",
+                    minlength: "minlenght 2"
+                },
+                phone: {
+                    required: "put number",
+                    maxlength: "10 digit max",
+                    digits: "enter numbers!"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    </script>
 </body>
 
 </html>
